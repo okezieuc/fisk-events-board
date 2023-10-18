@@ -1,3 +1,7 @@
 export default function Index() {
-  return <h1>Fisk events board</h1>;
+
+  return (
+  <h1>Fisk events board</h1>
+  
+  )
 }

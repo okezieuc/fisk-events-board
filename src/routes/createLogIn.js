@@ -1,20 +1,31 @@
 import { useState } from "react";
 import Navbar from "./NavBar.js"; 
+import './login.css'
 
 function App() {
   return (
     <>
+   <div className="body">
     <div>
-        <img src = "Fisklogo.png"></img>
+        <img className="logo" src = "Fisklogo.png"></img>
     </div>
-    <div>
-     <input onChange={(e) => {
+    <div className="loginback">
+      <div>
+        <h1>Welcome to Fisk Events!</h1>
+      </div>
+      <div className="loginarea">
+     <input placeholder="Username" className = "textbox" onChange={(e) => {
       console.log(e.target.value)
      }} type = "text"></input>
-     <input type = "password"></input>
-     <button onClick={() => {console.log('click')}}>
+     <input placeholder="Password" className="textbox" onChange={(e) => {
+      console.log(e.target.value)
+     }} type = "password"></input>
+     <button className="button" onClick={() => {console.log('click')}}>
       Log In</button>
+      </div>
     </div>
+    </div>
+    
     </>
     
   );

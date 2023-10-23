@@ -2,6 +2,9 @@ import { useState } from "react";
 import "./signup.css";
 
 function SignUpPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <>
       <div className="body">
@@ -14,10 +17,10 @@ function SignUpPage() {
           </div>
           <div className="loginarea">
             <input
-              placeholder="Username"
+              placeholder="Email"
               className="textbox"
               onChange={(e) => {
-                console.log(e.target.value);
+                setEmail(e.target.value);
               }}
               type="text"
             ></input>
@@ -25,7 +28,7 @@ function SignUpPage() {
               placeholder="Password"
               className="textbox"
               onChange={(e) => {
-                console.log(e.target.value);
+                setPassword(e.target.value);
               }}
               type="password"
             ></input>

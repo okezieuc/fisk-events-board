@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { StrictMode } from "react";
 import Index from "./routes";
-import CreateLogin from "./routes/createLogIn";
+import CreateLogin from "./routes/createSignUp";
 
 const router = createBrowserRouter([
   {

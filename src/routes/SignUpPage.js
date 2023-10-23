@@ -2,7 +2,7 @@ import { useState } from "react";
 import Navbar from "./NavBar.js"; 
 import './signup.css'
 
-function App() {
+function SignUpPage() {
   return (
     <>
    <div className="body">
@@ -33,4 +33,4 @@ function App() {
 
 
 
-export default App;
+export default SignUpPage;

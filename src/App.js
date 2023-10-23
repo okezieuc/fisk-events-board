@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { StrictMode } from "react";
 import Index from "./routes";
-import CreateLogin from "./routes/createSignUp";
+import SignUpPage from "./routes/SignUpPage";
 
 const router = createBrowserRouter([
   {
@@ -10,7 +10,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/signup",
-    element: <CreateLogin />
+    element: <SignUpPage />
   }
 ]);
 

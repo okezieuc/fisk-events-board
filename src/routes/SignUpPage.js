@@ -1,9 +1,27 @@
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import "./signup.css";
+import app from "../utils/firebase";
+
+const auth = getAuth(app);
 
 function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  function createUser() {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed up
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+  }
 
   return (
     <>
@@ -35,7 +53,7 @@ function SignUpPage() {
             <button
               className="button"
               onClick={() => {
-                console.log("click");
+                createUser();
               }}
             >
               Sign Up

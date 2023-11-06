@@ -1,9 +1,14 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { StrictMode } from "react";
+import { StrictMode, useState, useEffect } from "react";
 import Index from "./routes";
 import SignUpPage from "./routes/SignUpPage";
 import LogInPage from "./routes/LogInPage";
 import CreateEventPage from "./routes/createEvent";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import app from "./utils/firebase";
+import UserContext from "./utils/userContext";
+
+const auth = getAuth(app);
 
 const router = createBrowserRouter([
   {
@@ -25,9 +30,30 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const [user, setUser] = useState(null);
+  const [loadingUser, setLoadingUser] = useState(true);
+
+  useEffect(() => {
+    const unsubscriber = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in
+        const uid = user.uid;
+        setUser({ uid });
+      } else {
+        // User is signed out
+        setUser(null);
+      }
+      setLoadingUser(false);
+    });
+
+    return () => unsubscriber();
+  }, []);
+
   return (
     <StrictMode>
-      <RouterProvider router={router} />
+      <UserContext.Provider value={{ user, loading: loadingUser }}>
+        <RouterProvider router={router} />
+      </UserContext.Provider>
     </StrictMode>
   );
 }

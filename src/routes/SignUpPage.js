@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useState, useEffect } from "react";
 import "./signup.css";
@@ -10,6 +12,7 @@ function SignUpPage() {
   const [password, setPassword] = useState("");
   const [cPassword, setcPassword] = useState("")
   const [passMatch, setPassMatch] = useState(true);
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -28,6 +31,8 @@ function SignUpPage() {
         // Signed up
         const user = userCredential.user;
         // ...
+        navigate("/create")
+
       })
       .catch((error) => {
         const errorCode = error.code;

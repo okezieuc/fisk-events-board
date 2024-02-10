@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import "./signup.css";
@@ -8,6 +9,7 @@ const auth = getAuth(app);
 function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   function signInUser() {
     signInWithEmailAndPassword(auth, email, password)
@@ -15,6 +17,12 @@ function SignUpPage() {
         // Signed in
         const user = userCredential.user;
         // ...
+
+
+        navigate("/create");
+
+
+
       })
       .catch((error) => {
         const errorCode = error.code;

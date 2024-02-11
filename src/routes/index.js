@@ -24,20 +24,20 @@ export default function Index() {
   }, []);
 
   return (
-    <>
-      <h1>Fisk events board</h1>
+    <div style={{ maxWidth: '800px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '15px' }}>
+      <h1 style={{ marginBottom: '20px', textAlign: 'center', gridColumn: '1 / -1' }}>Fisk events board</h1>
       {loading ? (
         "loading"
       ) : (
         <>
           {events.map((event) => (
-            <div>
-              <div>{event.eventName}</div>
+            <div key={event.eventId} style={{ padding: '10px', border: '1px solid #ccc', borderRadius: '10px' }}>
+              <div style={{ marginBottom: '5px', fontSize: '1.2em', fontWeight: 'bold' }}>{event.eventName}</div>
               <div>{event.eventDescription}</div>
             </div>
           ))}
         </>
       )}
-    </>
-  );
+    </div>
+  );   
 }

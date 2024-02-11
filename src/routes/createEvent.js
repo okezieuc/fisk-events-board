@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { ref, uploadBytes} from "firebase/storage"
 import app from "../utils/firebase";
+import { storage} from '../utils/firebase';
+
+import { v4 as uuidv4} from 'uuid';
 
 const db = getFirestore(app);
 
@@ -10,9 +14,11 @@ function CreateEventPage() {
         eventName: '',
         eventDate: '',
         eventDescription: '',
+        eventFlierLocation: ''
     });
 
     const [flyer, setFlyer] = useState(null);
+    const [imgData, setImgData] = useState(null);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -23,14 +29,46 @@ function CreateEventPage() {
     };
 
     const handleFlyerChange = (e) => {
-        const file = e.target.files[0];
-        setFlyer(file);
+        console.log(e.target.files)
+
+        if (e.target.files && e.target.files.length > 0) {
+            setFlyer(e.target.files[0])
+            console.log("picture: ", e.target.files);
+            const reader = new FileReader();
+            reader.addEventListener("load", () => {
+                setImgData(reader.result);
+            });
+            reader.readAsDataURL(e.target.files[0]);
+        } else {
+            setFlyer(null);
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         // You can handle form submission here, e.g., sending the data and flyer to a server.
-        const docRef = await addDoc(collection(db, "events"), eventDetails)
+
+        if (flyer !== null) {
+            const fileLocation = `flyers/${uuidv4()}.${flyer.name.split('.').pop()}`;
+            const uploadRef = ref(storage, `${fileLocation}`);
+
+            uploadBytes(uploadRef, flyer).then((snapshot) => {
+                setEventDetails({
+                    ...eventDetails,
+                    eventFlierLocation: fileLocation,
+                });
+
+                addDoc(collection(db, "events"), eventDetails).then((snapshot) => {
+                    console.log(snapshot);
+                }).catch((error) => {
+                    console.error("Couldn't upload to the collection.")
+                });
+            }).catch((error) => {
+                console.error("Couldn't upload image.");
+            }).finally(() => {
+                console.log("Moving on...");
+            });
+        }
     };
 
     return (
@@ -75,10 +113,16 @@ function CreateEventPage() {
                         type="file"
                         id="flyer"
                         name="flyer"
-                        accept=".jpg, .jpeg, .png, .pdf"
+                        accept="image/*"
                         onChange={handleFlyerChange}
                     />
                 </div>
+
+                {flyer && (
+                    <div>
+                        <img src={imgData} alt="Preview" style={{ maxWidth: '100%', maxHeight: '200px'}}/>
+                    </div>
+                )}
                 <div>
                     <button type="submit">Create Event</button>
                 </div>

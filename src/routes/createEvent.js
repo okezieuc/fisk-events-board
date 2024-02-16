@@ -14,7 +14,7 @@ function CreateEventPage() {
         eventName: '',
         eventDate: '',
         eventDescription: '',
-        eventFlierLocation: ''
+        eventFlyerLocation: ''
     });
 
     const [flyer, setFlyer] = useState(null);
@@ -55,14 +55,14 @@ function CreateEventPage() {
             uploadBytes(uploadRef, flyer).then((snapshot) => {
                 setEventDetails({
                     ...eventDetails,
-                    eventFlierLocation: fileLocation,
+                    eventFlyerLocation: fileLocation,
                 });
 
                 // state update appears to take a while. so we explicitly reinclude
                 // the event flyer location here.
                 addDoc(collection(db, "events"), {
                     ...eventDetails,
-                    eventFlierLocation: fileLocation,
+                    eventFlyerLocation: fileLocation,
                 }).then((snapshot) => {
                     console.log(snapshot);
                 }).catch((error) => {

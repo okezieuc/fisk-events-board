@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { getFirestore, collection, addDoc } from "firebase/firestore";
-import { ref, uploadBytes} from "firebase/storage"
+import { ref, uploadBytes } from "firebase/storage"
 import app from "../utils/firebase";
-import { storage} from '../utils/firebase';
+import { storage } from '../utils/firebase';
 
-import { v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 const db = getFirestore(app);
 
@@ -14,7 +14,7 @@ function CreateEventPage() {
         eventName: '',
         eventDate: '',
         eventDescription: '',
-        eventFlierLocation: ''
+        eventFlyerLocation: ''
     });
 
     const [flyer, setFlyer] = useState(null);
@@ -55,10 +55,15 @@ function CreateEventPage() {
             uploadBytes(uploadRef, flyer).then((snapshot) => {
                 setEventDetails({
                     ...eventDetails,
-                    eventFlierLocation: fileLocation,
+                    eventFlyerLocation: fileLocation,
                 });
 
-                addDoc(collection(db, "events"), eventDetails).then((snapshot) => {
+                // state update appears to take a while. so we explicitly reinclude
+                // the event flyer location here.
+                addDoc(collection(db, "events"), {
+                    ...eventDetails,
+                    eventFlyerLocation: fileLocation,
+                }).then((snapshot) => {
                     console.log(snapshot);
                 }).catch((error) => {
                     console.error("Couldn't upload to the collection.")
@@ -120,7 +125,7 @@ function CreateEventPage() {
 
                 {flyer && (
                     <div>
-                        <img src={imgData} alt="Preview" style={{ maxWidth: '100%', maxHeight: '200px'}}/>
+                        <img src={imgData} alt="Preview" style={{ maxWidth: '100%', maxHeight: '200px' }} />
                     </div>
                 )}
                 <div>

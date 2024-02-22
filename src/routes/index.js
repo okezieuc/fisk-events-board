@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import app from "../utils/firebase";
+import FirestoreImg from "../components/FirestoreImg";
 
 const db = getFirestore(app);
 
@@ -32,6 +33,9 @@ export default function Index() {
         <>
           {events.map((event) => (
             <div key={event.eventId} style={{ padding: '10px', border: '1px solid #ccc', borderRadius: '10px' }}>
+              <div>
+                <FirestoreImg src={event.eventFlyerLocation} />
+              </div>
               <div style={{ marginBottom: '5px', fontSize: '1.2em', fontWeight: 'bold' }}>{event.eventName}</div>
               <div>{event.eventDescription}</div>
             </div>
@@ -39,5 +43,5 @@ export default function Index() {
         </>
       )}
     </div>
-  );   
+  );
 }

@@ -1,9 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { StrictMode, useState, useEffect } from "react";
-import Index from "./routes";
-import SignUpPage from "./routes/SignUpPage";
-import LogInPage from "./routes/LogInPage";
-import CreateEventPage from "./routes/createEvent";
+import Index from "./pages";
+import SignUpPage from "./pages/SignUpPage";
+import LogInPage from "./pages/LogInPage";
+import CreateEventPage from "./pages/createEvent";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import app from "./utils/firebase";
 import UserContext from "./utils/userContext";

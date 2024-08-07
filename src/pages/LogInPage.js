@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
-
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { useState, useEffect } from "react";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
 import "./signup.css";
 import app from "../utils/firebase";
 
@@ -10,34 +9,24 @@ const auth = getAuth(app);
 function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [cPassword, setcPassword] = useState("")
-  const [passMatch, setPassMatch] = useState(true);
   const navigate = useNavigate();
 
-
-  useEffect(() => {
-    validatePassword();
-  }, [password, cPassword]);
-
-  const validatePassword = () => {
-    password === cPassword
-      ? setPassMatch(true)
-      : setPassMatch(false);
-  };
-
-  function createUser() {
-    createUserWithEmailAndPassword(auth, email, password)
+  function signInUser() {
+    signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed up
+        // Signed in
         const user = userCredential.user;
         // ...
-        navigate("/create")
+
+
+        navigate("/create");
+
+
 
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
       });
   }
 
@@ -45,7 +34,7 @@ function SignUpPage() {
     <>
       <div className="body">
         <div>
-          <img className="logo" src="Fisklogo.png"></img>
+          <img className="logo" src="images/Fisklogo.png"></img>
         </div>
         <div className="loginback">
           <div>
@@ -68,30 +57,14 @@ function SignUpPage() {
               }}
               type="password"
             ></input>
-            <input
-              value={cPassword}
-              aria-required="true"
-              aria-invalid={passMatch ? true : false}
-              placeholder="Confirm Password"
-              className="textbox"
-              onChange={(e) => {
-                setcPassword(e.target.value);
-              }}
-              type="password"
-            ></input>
-            <div className="input-error">
-              {password !== cPassword ? "" : ""}
-            </div>
-            <div className="input-error">
-              {passMatch ? "" : "Error: Passwords do not match"}
-            </div>
             <button
               className="button"
               onClick={() => {
-                createUser();
+                console.log("log in");
+                signInUser();
               }}
             >
-              Sign Up
+              Log In
             </button>
           </div>
         </div>
@@ -101,5 +74,3 @@ function SignUpPage() {
 }
 
 export default SignUpPage;
-
-

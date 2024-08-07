@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
+
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage"
+import { app, storage } from '../services/firebase';
 
-import {app, storage } from '../services/firebase';
+import { useAuth } from '../contexts/AuthContext';
 
 import { v4 as uuidv4 } from 'uuid';
 
 const db = getFirestore(app);
 
 function CreateEventPage() {
+    const {signOut} = useAuth();
+
     const [eventDetails, setEventDetails] = useState({
         eventName: '',
         eventDate: '',
@@ -131,6 +135,8 @@ function CreateEventPage() {
                     <button type="submit">Create Event</button>
                 </div>
             </form>
+            <br/>
+            <button onClick={() => {signOut()}}>Sign Out</button>
         </div>
     );
 }

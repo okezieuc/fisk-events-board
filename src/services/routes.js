@@ -5,6 +5,8 @@ import SignUpPage from "../pages/SignUpPage";
 import LogInPage from "../pages/LogInPage";
 import CreateEventPage from "../pages/CreateEventPage";
 
+import ProtectedRoute from "../components/ProtectedRoute";
+
 const routes = createBrowserRouter([
     {
       path: "/",
@@ -20,7 +22,7 @@ const routes = createBrowserRouter([
     },
     {
       path: "/create",
-      element: <CreateEventPage />,
+      element: <ProtectedRoute><CreateEventPage /></ProtectedRoute>,
     },
   ]);
 

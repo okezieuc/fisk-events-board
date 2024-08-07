@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 
-import "./signup.css";
+import "../assets/styles/AuthPageStyle.css";
 
 function LoginPage() {
   const {user, signIn} = useAuth();

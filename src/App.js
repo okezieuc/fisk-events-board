@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { AuthProvider } from "./contexts/AuthContext";
 import { RouterProvider } from "react-router-dom";
-import routes from "./routes";
+import routes from "./pages/HomePage";
 
 function App() {
   return (

@@ -5,7 +5,7 @@ import FirestoreImg from "../components/FirestoreImg";
 
 const db = getFirestore(app);
 
-export default function Index() {
+export default function Home() {
   const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState([]);
 

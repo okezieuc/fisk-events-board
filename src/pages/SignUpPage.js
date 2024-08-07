@@ -1,19 +1,18 @@
 import { useNavigate } from "react-router-dom";
 
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useState, useEffect } from "react";
 import "./signup.css";
-import app from "../utils/firebase";
-
-const auth = getAuth(app);
+import { useAuth } from "../contexts/AuthContext";
 
 function SignUpPage() {
+  const {user, signUp} = useAuth();
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cPassword, setcPassword] = useState("")
   const [passMatch, setPassMatch] = useState(true);
-  const navigate = useNavigate();
-
+  const [error, setError] = useState("");
 
   useEffect(() => {
     validatePassword();
@@ -25,27 +24,27 @@ function SignUpPage() {
       : setPassMatch(false);
   };
 
-  function createUser() {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed up
-        const user = userCredential.user;
-        // ...
-        navigate("/create")
+  useEffect(() => {
+    if (user) {
+      navigate('/create');
+    }
+  }, [user , navigate]);
 
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-      });
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      await signUp(email, password);
+    } catch (err) {
+      setError(`Failed to sign in: [${err.code}] - ${err.message}`);
+    }
   }
 
   return (
     <>
       <div className="body">
         <div>
-          <img className="logo" src="images/Fisklogo.png"></img>
+          <img className="logo" src="assets/images/Fisklogo.png"></img>
         </div>
         <div className="loginback">
           <div>
@@ -87,9 +86,7 @@ function SignUpPage() {
             </div>
             <button
               className="button"
-              onClick={() => {
-                createUser();
-              }}
+              onClick={handleSubmit}
             >
               Sign Up
             </button>

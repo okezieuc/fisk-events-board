@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage"
-import app from "../utils/firebase";
-import { storage } from '../utils/firebase';
+
+import {app, storage } from '../services/firebase';
 
 import { v4 as uuidv4 } from 'uuid';
 
 const db = getFirestore(app);
-
 
 function CreateEventPage() {
     const [eventDetails, setEventDetails] = useState({

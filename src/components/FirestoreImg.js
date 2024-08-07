@@ -1,8 +1,6 @@
-import app from "../utils/firebase";
-import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import { storage } from "../services/firebase";
+import { getDownloadURL, ref } from "firebase/storage";
 import { useEffect, useState } from "react";
-
-const storage = getStorage(app);
 
 export default function FirestoreImg({
   src,

@@ -18,11 +18,11 @@ export default function FirestoreImage({
         // sets the image URL if no errors
         setImageURL(_imgURL);
       })
-      .catch(() => {
+      .catch((err) => {
         // catches the error. 
         // Error probably to be used in the rendering somehow.
-        setError(error);
-        console.error(error);
+        setError(err);
+        console.error(err);
       })
       .finally(() => {
         // resets the loading state

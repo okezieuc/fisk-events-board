@@ -1,24 +1,28 @@
 import { useEffect, useState } from "react";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
-import { app } from "../services/firebase";
 import FirestoreImage from "../components/FirestoreImage";
-
-const db = getFirestore(app);
+import { fetchEventsData } from "../services/firebase";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function getEventsData() {
-      const querySnapshot = await getDocs(collection(db, "events"));
-      const accumulator = [];
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        accumulator.push(doc.data());
-      });
-      setEvents(accumulator);
-      setLoading(false);
+    const getEventsData  = async () => {
+      // ensures is loading
+      setLoading(true);
+      
+      try {
+        // gets the events and stores them
+        const _events = await fetchEventsData();
+        setEvents(_events);
+      } catch (err) {
+        // error could come in handy later
+        setError(err);
+      } finally {
+        // ensures is not loading
+        setLoading(false);
+      }
     }
 
     getEventsData();
@@ -28,7 +32,7 @@ export default function Home() {
     <div style={{ maxWidth: '800px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '15px' }}>
       <h1 style={{ marginBottom: '20px', textAlign: 'center', gridColumn: '1 / -1' }}>Fisk events board</h1>
       {loading ? (
-        "loading"
+        "Loading..."
       ) : (
         <>
           {events.map((event) => (

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { app } from "../services/firebase";
-import FirestoreImg from "../components/FirestoreImg";
+import FirestoreImage from "../components/FirestoreImage";
 
 const db = getFirestore(app);
 
@@ -33,9 +33,7 @@ export default function Home() {
         <>
           {events.map((event) => (
             <div key={event.eventId} style={{ padding: '10px', border: '1px solid #ccc', borderRadius: '10px' }}>
-              <div>
-                <FirestoreImg src={event.eventFlyerLocation} />
-              </div>
+              <FirestoreImage src={event.eventFlyerLocation} />
               <div style={{ marginBottom: '5px', fontSize: '1.2em', fontWeight: 'bold' }}>{event.eventName}</div>
               <div>{event.eventDescription}</div>
             </div>

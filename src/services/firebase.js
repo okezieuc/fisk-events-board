@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import {getStorage} from "firebase/storage";
+import { getStorage, getDownloadURL, ref } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCWReDRCN3szdhefs9PshevaAYEMgximjA",
@@ -15,3 +15,8 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const storage = getStorage(app);
+
+export const fetchImageURLFromStorage = async (src) => {
+  const imageRef = ref(storage, src);
+  return await getDownloadURL(imageRef);
+};

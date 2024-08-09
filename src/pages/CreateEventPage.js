@@ -4,7 +4,7 @@ import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage"
 import { app, storage } from '../services/firebase.ts';
 
-import { useAuth } from '../contexts/AuthContext.tsx';
+import { useAuth } from '../contexts/AuthContext';
 
 import { v4 as uuidv4 } from 'uuid';
 

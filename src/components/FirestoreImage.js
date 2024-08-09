@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { fetchImageURLFromStorage } from "../services/firebase";
+import { fetchImageURLFromStorage } from "../services/firebase.ts";
 
 export default function FirestoreImage({
   src,

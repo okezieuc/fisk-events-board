@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import FirestoreImage from "../components/FirestoreImage";
-import { fetchEventsData } from "../services/firebase";
+import { fetchEventsData } from "../services/firebase.ts";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);

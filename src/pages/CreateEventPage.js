@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage"
-import { app, storage } from '../services/firebase';
+import { app, storage } from '../services/firebase.ts';
 
 import { useAuth } from '../contexts/AuthContext';
 

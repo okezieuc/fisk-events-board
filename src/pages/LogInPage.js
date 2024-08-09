@@ -1,40 +1,38 @@
 import { useNavigate } from "react-router-dom";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
-import "./signup.css";
-import app from "../utils/firebase";
+import { useEffect, useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
 
-const auth = getAuth(app);
+import "../assets/styles/AuthPageStyle.css";
 
-function SignUpPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+function LoginPage() {
+  const {user, signIn} = useAuth();
   const navigate = useNavigate();
 
-  function signInUser() {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        // ...
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
+  useEffect(() => {
+    if (user) {
+      navigate('/create');
+    }
+  }, [user, navigate]);
 
-        navigate("/create");
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-
-
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
-  }
+    try {
+      await signIn(email, password);
+    } catch (err) {
+      setError(`Failed to sign in: [${err.code}] - ${err.message}`);
+    }
+  };
 
   return (
     <>
       <div className="body">
         <div>
-          <img className="logo" src="Fisklogo.png"></img>
+          <img className="logo" src="assets/images/Fisklogo.png"></img>
         </div>
         <div className="loginback">
           <div>
@@ -59,9 +57,9 @@ function SignUpPage() {
             ></input>
             <button
               className="button"
-              onClick={() => {
+              onClick={(event) => {
                 console.log("log in");
-                signInUser();
+                handleSubmit(event);
               }}
             >
               Log In
@@ -73,4 +71,4 @@ function SignUpPage() {
   );
 }
 
-export default SignUpPage;
+export default LoginPage;

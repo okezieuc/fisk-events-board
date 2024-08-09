@@ -1,59 +1,14 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { StrictMode, useState, useEffect } from "react";
-import Index from "./routes";
-import SignUpPage from "./routes/SignUpPage";
-import LogInPage from "./routes/LogInPage";
-import CreateEventPage from "./routes/createEvent";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import app from "./utils/firebase";
-import UserContext from "./utils/userContext";
-
-const auth = getAuth(app);
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Index />,
-  },
-  {
-    path: "/signup",
-    element: <SignUpPage />,
-  },
-  {
-    path: "/login",
-    element: <LogInPage />,
-  },
-  {
-    path: "/create",
-    element: <CreateEventPage />,
-  },
-]);
+import { StrictMode } from "react";
+import { AuthProvider } from "./contexts/AuthContext";
+import { RouterProvider } from "react-router-dom";
+import routes from "./services/routes";
 
 function App() {
-  const [user, setUser] = useState(null);
-  const [loadingUser, setLoadingUser] = useState(true);
-
-  useEffect(() => {
-    const unsubscriber = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in
-        const uid = user.uid;
-        setUser({ uid });
-      } else {
-        // User is signed out
-        setUser(null);
-      }
-      setLoadingUser(false);
-    });
-
-    return () => unsubscriber();
-  }, []);
-
   return (
     <StrictMode>
-      <UserContext.Provider value={{ user, loading: loadingUser }}>
-        <RouterProvider router={router} />
-      </UserContext.Provider>
+      <AuthProvider>
+        <RouterProvider router={routes} />
+      </AuthProvider>
     </StrictMode>
   );
 }

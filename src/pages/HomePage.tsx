@@ -54,9 +54,9 @@ export default function Home() {
 
 const EventCard = ({ event }: { event: Event }) => {
   return (
-    <div className="p-2.5 border border-gray-200 rounded-lg shadow-md">
+    <div className="p-4 border border-gray-200 rounded-lg shadow-md">
       {event.flyerStorageURL && (
-        <FirestoreImage src={event.flyerStorageURL.toString()} />
+        <FirestoreImage src={event.flyerStorageURL.toString()} imageStyle="max-h-72"/>
       )}
       <div className="mb-1.5 text-lg font-bold">
         {event.name}

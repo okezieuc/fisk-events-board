@@ -1,35 +1,41 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { fetchImageURLFromStorage } from "../services/firebase";
 
 type FirestoreImageProps = {
   src: string,
+  containerStyle?: string,
+  imageStyle?: string,
 };
 
-export default function FirestoreImage(props: FirestoreImageProps) {
+export default function FirestoreImage({src, containerStyle= '', imageStyle= ''}: FirestoreImageProps) {
   const [imageURL, setImageURL] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
+  const loadImageURL = useCallback(async () => {
     // sets to loading state (probably a spinner)
     setIsLoading(true);
 
-    fetchImageURLFromStorage(props.src)
-      .then((_imgURL) => {
-        // sets the image URL if no errors
-        setImageURL(_imgURL);
-      })
-      .catch((err) => {
-        // catches the error. 
-        // Error probably to be used in the rendering somehow.
-        setError(err);
-      })
-      .finally(() => {
-        // resets the loading state
-        setIsLoading(false);
-      });
-  }, [props.src]);
+    try {
+      const _imgURL = await fetchImageURLFromStorage(src);
+      setImageURL(_imgURL); // sets img url if no errors
+    } catch (err) {
+      // catches the error. 
+      // Error probably to be used in the rendering somehow.
+
+      if (err instanceof Error) {
+        setError(`Error loading image: ${err}`);
+      }
+    } finally {
+      // resets the loading state
+      setIsLoading(false);
+    }
+  }, [ src ]);
+
+  useEffect(() => {
+    loadImageURL();
+  }, [ loadImageURL ]);
 
   if (isLoading) {
     return <div>{"...Loading"}</div>;
@@ -40,8 +46,8 @@ export default function FirestoreImage(props: FirestoreImageProps) {
   }
 
   return (
-    <div>
-      <img src={imageURL} alt={imageURL} style={{ maxHeight: '300px' }}/>
+    <div className={containerStyle}>
+      <img src={imageURL} alt={imageURL} className={imageStyle} />
     </div>
   );
 }

@@ -10,10 +10,10 @@ export default function Home() {
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    const getEventsData  = async () => {
+    const getEventsData = async () => {
       // ensures is loading
       setLoading(true);
-      
+
       try {
         // gets the events and stores them
         const _events = await fetchEventsData();
@@ -35,18 +35,23 @@ export default function Home() {
   }, []);
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '15px' }}>
-      <h1 style={{ marginBottom: '20px', textAlign: 'center', gridColumn: '1 / -1' }}>Fisk events board</h1>
+    <div className="max-w-2xl mx-auto grid grid-cols-2 gap-4">
+      <h1 className="mb-5 text-center col-span-2">Fisk events board</h1>
       {loading ? (
         "Loading..."
       ) : error ? (
         <>{error}</>
-      ) :(
+      ) : (
         <>
           {events.map((event) => (
-            <div key={event.id} style={{ padding: '10px', border: '1px solid #ccc', borderRadius: '10px' }}>
-              {event.flyerStorageURL && <FirestoreImage src={event.flyerStorageURL.toString()} />}
-              <div style={{ marginBottom: '5px', fontSize: '1.2em', fontWeight: 'bold' }}>{event.name}</div>
+            <div
+              key={event.id}
+              className="p-2.5 border border-gray-300 rounded-lg"
+            >
+              {event.flyerStorageURL && (
+                <FirestoreImage src={event.flyerStorageURL.toString()} />
+              )}
+              <div className="mb-1.5 text-lg font-bold">{event.name}</div>
               <div>{event.description}</div>
             </div>
           ))}

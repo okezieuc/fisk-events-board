@@ -44,19 +44,24 @@ export default function Home() {
       ) : (
         <>
           {events.map((event) => (
-            <div
-              key={event.id}
-              className="p-2.5 border border-gray-300 rounded-lg"
-            >
-              {event.flyerStorageURL && (
-                <FirestoreImage src={event.flyerStorageURL.toString()} />
-              )}
-              <div className="mb-1.5 text-lg font-bold">{event.name}</div>
-              <div>{event.description}</div>
-            </div>
+            <EventCard key={event.id} event={event} />
           ))}
         </>
       )}
     </div>
   );
 }
+
+const EventCard = ({ event }: { event: Event }) => {
+  return (
+    <div className="p-2.5 border border-gray-200 rounded-lg shadow-md">
+      {event.flyerStorageURL && (
+        <FirestoreImage src={event.flyerStorageURL.toString()} />
+      )}
+      <div className="mb-1.5 text-lg font-bold">
+        {event.name}
+      </div>
+      <div>{event.description}</div>
+    </div>
+  )
+};

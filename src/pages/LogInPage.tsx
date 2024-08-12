@@ -1,18 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
 
 import "../assets/styles/AuthPageStyle.css";
 import React from "react";
 import AuthPageContainer from "../components/AuthPageContainer";
+import LogInPageForm from "../components/LogInPageForm";
 
 function LoginPage() {
-  const { user, signIn } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
 
   useEffect(() => {
     if (user) {
@@ -20,52 +17,13 @@ function LoginPage() {
     }
   }, [user, navigate]);
 
-  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault();
-
-    try {
-      await signIn(email, password);
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(`Failed to sign in: ${err.message}`);
-      }
-    }
-  };
-
   return (
     <AuthPageContainer>
       <div>
         <div>
-          <h1>Welcome to Fisk Events!</h1>
+          <h1>Welcome back to Fisk Events!</h1>
         </div>
-        <div className="loginarea">
-          <input
-            placeholder="Email"
-            className="textbox"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            type="text"
-          ></input>
-          <input
-            placeholder="Password"
-            className="textbox"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            type="password"
-          ></input>
-          <button
-            className="button"
-            onClick={(event) => {
-              console.log("log in");
-              handleSubmit(event);
-            }}
-          >
-            Log In
-          </button>
-          <span>{error}</span>
-        </div>
+        <LogInPageForm />
       </div>
     </AuthPageContainer>
   );

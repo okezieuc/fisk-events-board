@@ -3,6 +3,7 @@ import FirestoreImage from "../components/FirestoreImage";
 import AppContainer from "../components/AppContainer";
 import { fetchEventsData } from "../services/firebase";
 import type { Event } from "../services/firebase";
+import AppHeader from "../components/AppHeader";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -36,6 +37,11 @@ export default function Home() {
 
   return (
     <AppContainer>
+      <AppHeader
+        title="Today"
+        subtitle="Click to view weekly wrap"
+        rightSideText="? events"
+      />
       <div
         style={{
           maxWidth: "800px",
@@ -45,15 +51,6 @@ export default function Home() {
           gap: "15px",
         }}
       >
-        <h1
-          style={{
-            marginBottom: "20px",
-            textAlign: "center",
-            gridColumn: "1 / -1",
-          }}
-        >
-          Fisk events board
-        </h1>
         {loading ? (
           "Loading..."
         ) : error ? (

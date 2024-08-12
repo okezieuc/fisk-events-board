@@ -5,6 +5,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 import "../assets/styles/AuthPageStyle.css";
 import React from "react";
+import AuthPageContainer from "../components/AuthPageContainer";
 
 function SignUpPage() {
   const { user, signUp } = useAuth();
@@ -45,11 +46,8 @@ function SignUpPage() {
   };
 
   return (
-    <div className="body">
+    <AuthPageContainer>
       <div>
-        <img className="logo" src="assets/images/Fisklogo.png"></img>
-      </div>
-      <div className="loginback">
         <div>
           <h1>Welcome to Fisk Events!</h1>
         </div>
@@ -96,7 +94,7 @@ function SignUpPage() {
           <span>{error}</span>
         </div>
       </div>
-    </div>
+    </AuthPageContainer>
   );
 }
 

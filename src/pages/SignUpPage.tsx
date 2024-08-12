@@ -6,6 +6,7 @@ import { useAuth } from "../contexts/AuthContext";
 import "../assets/styles/AuthPageStyle.css";
 import React from "react";
 import AuthPageContainer from "../components/AuthPageContainer";
+import SignUpPageForm from "../components/SignUpPageForm";
 
 function SignUpPage() {
   const { user, signUp } = useAuth();
@@ -51,48 +52,7 @@ function SignUpPage() {
         <div>
           <h1>Welcome to Fisk Events!</h1>
         </div>
-        <div className="loginarea">
-          <input
-            placeholder="Email"
-            className="textbox"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            type="text"
-          ></input>
-          <input
-            placeholder="Password"
-            className="textbox"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            type="password"
-          ></input>
-          <input
-            value={cPassword}
-            aria-required="true"
-            aria-invalid={passMatch ? true : false}
-            placeholder="Confirm Password"
-            className="textbox"
-            onChange={(e) => {
-              setcPassword(e.target.value);
-            }}
-            type="password"
-          ></input>
-          <div className="input-error">
-            {password !== cPassword ? "" : ""}
-          </div>
-          <div className="input-error">
-            {passMatch ? "" : "Error: Passwords do not match"}
-          </div>
-          <button
-            className="button"
-            onClick={handleSubmit}
-          >
-            Sign Up
-          </button>
-          <span>{error}</span>
-        </div>
+        <SignUpPageForm />
       </div>
     </AuthPageContainer>
   );

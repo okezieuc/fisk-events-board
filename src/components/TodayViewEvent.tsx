@@ -1,6 +1,7 @@
 import React from "react";
 import type { Event } from "../services/firebase";
 import TodayViewEventDescription from "./TodayViewEventDescription";
+import TodayViewEventFlyer from "./TodayViewEventFlyer";
 
 type TodayViewEventProps = {
   event: Event | null;
@@ -14,6 +15,7 @@ type TodayViewEventProps = {
 export default function TodayViewEvent(props: TodayViewEventProps) {
   return props.event ? (
     <>
+      <TodayViewEventFlyer src={props.event.flyerStorageURL.toString()} />
       <TodayViewEventDescription event={props.event} />
     </>
   ) : (

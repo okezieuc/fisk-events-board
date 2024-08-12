@@ -4,6 +4,7 @@ import { fetchImageURLFromStorage } from "../services/firebase";
 
 type FirestoreImageProps = {
   src: string,
+  classExtension?: string,
 };
 
 export default function FirestoreImage(props: FirestoreImageProps) {
@@ -41,7 +42,7 @@ export default function FirestoreImage(props: FirestoreImageProps) {
 
   return (
     <div>
-      <img src={imageURL} alt={imageURL} style={{ maxHeight: '300px' }}/>
+      <img src={imageURL} alt={imageURL} className={props.classExtension} />
     </div>
   );
 }

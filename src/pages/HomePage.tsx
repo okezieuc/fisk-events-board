@@ -5,11 +5,13 @@ import { fetchEventsData } from "../services/firebase";
 import type { Event } from "../services/firebase";
 import AppHeader from "../components/AppHeader";
 import TodayViewEvent from "../components/TodayViewEvent";
+import TodayViewEventNavigationBar from "../components/TodayViewEventNavigationBar";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState<Event[]>([]);
   const [error, setError] = useState<Error | null>(null);
+  const [currentEventIndex, setCurrentEventIndex] = useState(-1);
 
   useEffect(() => {
     const getEventsData = async () => {
@@ -21,6 +23,12 @@ export default function Home() {
         const _events = await fetchEventsData();
         console.log(_events);
         setEvents(_events);
+
+        // if there is at least one event returned, set the current
+        // event index to 0
+        if (_events.length > 0) {
+          setCurrentEventIndex(0);
+        }
       } catch (err) {
         // error could come in handy later
         if (err instanceof Error) {
@@ -44,7 +52,14 @@ export default function Home() {
         rightSideText="? events"
       />
 
-      <TodayViewEvent event={events && events[0] ? events[0] : null} />
+      <TodayViewEvent
+        event={currentEventIndex != -1 ? events[currentEventIndex] : null}
+      />
+
+      <TodayViewEventNavigationBar
+        setCurrentEventIndex={setCurrentEventIndex}
+        eventCount={events.length}
+      />
 
       <div
         style={{

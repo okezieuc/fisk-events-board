@@ -1,19 +1,21 @@
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fetchImageURLFromStorage } from "../services/firebase";
 
-export default function FirestoreImage({
-  src,
-}) {
-  const [imageURL, setImageURL] = useState();
-  const [isLoading, setIsLoading] = useState(null);
+type FirestoreImageProps = {
+  src: string,
+};
+
+export default function FirestoreImage(props: FirestoreImageProps) {
+  const [imageURL, setImageURL] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
     // sets to loading state (probably a spinner)
     setIsLoading(true);
 
-    fetchImageURLFromStorage(src)
+    fetchImageURLFromStorage(props.src)
       .then((_imgURL) => {
         // sets the image URL if no errors
         setImageURL(_imgURL);
@@ -22,13 +24,24 @@ export default function FirestoreImage({
         // catches the error. 
         // Error probably to be used in the rendering somehow.
         setError(err);
-        console.error(err);
       })
       .finally(() => {
         // resets the loading state
         setIsLoading(false);
       });
-  }, [src]);
+  }, [props.src]);
 
-  return <div>{isLoading ? "...Loading" : <img src={imageURL} style={{ maxHeight: '300px' }}/>}</div>;
+  if (isLoading) {
+    return <div>{"...Loading"}</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  return (
+    <div>
+      <img src={imageURL} alt={imageURL} style={{ maxHeight: '300px' }}/>
+    </div>
+  );
 }

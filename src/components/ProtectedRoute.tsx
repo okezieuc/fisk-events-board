@@ -1,8 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext"
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
-const ProtectedRoute = ({ children }) => {
+type ProtectedRouteProps = {
+    children: React.ReactElement
+};
+
+const ProtectedRoute = (props: ProtectedRouteProps) => {
     const { user } = useAuth();
     const navigate = useNavigate();
 
@@ -12,7 +16,7 @@ const ProtectedRoute = ({ children }) => {
         }
     }, [user, navigate]);
 
-    return (user) ? children : null;
+    return (user) ? props.children : null;
 };
 
 export default ProtectedRoute;

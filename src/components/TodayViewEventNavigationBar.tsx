@@ -7,6 +7,8 @@ type TodayViewEventNavigationBarProps = {
 
 // TODO: Replace the text here with actual icons.
 // TODO: Create a custom shadow option for the buttons or explore alternatives.
+// TODO: Replace the text here with actual icons.
+// TODO: Create a custom shadow option for the buttons or explore alternatives.
 export default function TodayViewEventNavigationBar(
   props: TodayViewEventNavigationBarProps
 ) {

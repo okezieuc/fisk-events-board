@@ -7,6 +7,7 @@ type TodayViewEventDescriptionProps = {
 
 // TODO: Replace xpm with a time formatted like 5:30pm, 6am, etc.
 // TODO: Replace the placeholders for the location of the event
+// TODO: Consider reducing the font weight of event description text
 export default function TodayViewEventDescription(
   props: TodayViewEventDescriptionProps
 ) {

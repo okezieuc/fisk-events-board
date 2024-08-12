@@ -9,7 +9,7 @@ const enum SignUpError {
   PasswordMismatch = 'Passwords do not match',
   MissingEmail = 'Empty field - email',
   MissingPassword = 'Empty field - password',
-  Other = 'Error occured - Could not sign up'
+  Other = 'Error occured - Could not sign up. Try again.'
   // password validation errors later
 };
 

@@ -4,6 +4,7 @@ import AppContainer from "../components/AppContainer";
 import { fetchEventsData } from "../services/firebase";
 import type { Event } from "../services/firebase";
 import AppHeader from "../components/AppHeader";
+import TodayViewEvent from "../components/TodayViewEvent";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -42,6 +43,9 @@ export default function Home() {
         subtitle="Click to view weekly wrap"
         rightSideText="? events"
       />
+
+      <TodayViewEvent event={events && events[0] ? events[0] : null} />
+
       <div
         style={{
           maxWidth: "800px",

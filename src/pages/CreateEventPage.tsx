@@ -9,14 +9,18 @@ type EventDetails = {
     name: string,
     date: string,
     time: string,
-    description: string
+    description: string,
+    organizer: string,
+    location: string,
+    attire: string,
 };
 
 function CreateEventPage() {
     const { user, signOut } = useAuth();
 
     const [eventDetails, setEventDetails] = useState<EventDetails>({
-        name: '', date: '', time: '', description: ''
+        name: '', date: '', time: '', description: '',
+        organizer: '', location: '', attire: ''
     });
 
     const [flyer, setFlyer] = useState<File | null>(null);
@@ -60,6 +64,9 @@ function CreateEventPage() {
                     description: eventDetails.description,
                     dateTime: dateTimeToTimestamp(eventDetails.date, eventDetails.time),
                     flyerData: flyer,
+                    organizer: eventDetails.organizer,
+                    location: eventDetails.location,
+                    attire: eventDetails.attire
                 });
             } catch(error) {
                 console.log(error);
@@ -74,46 +81,21 @@ function CreateEventPage() {
             <h2>Create Event</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="name">Event Name:</label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={eventDetails.name}
-                        onChange={handleChange}
-                        required
-                    />
+                    <HTMLTextInputComponent name="name" type="text" value={eventDetails.name} onChange={handleChange}/>
                 </div>
                 <div>
-                    <label htmlFor="date">Event Date:</label>
-                    <input
-                        type="date"
-                        id="date"
-                        name="date"
-                        value={eventDetails.date}
-                        onChange={handleChange}
-                        required
-                    />
+                    <HTMLTextInputComponent name="date" type="date" value={eventDetails.date} onChange={handleChange}/>
                     <br/>
-                    <label htmlFor='time'> Event Time:</label>
-                    <input
-                        type="time"
-                        id="time"
-                        name="time"
-                        value={eventDetails.time}
-                        onChange={handleChange}
-                        required
-                    />
+                    <HTMLTextInputComponent name="time" type="time" value={eventDetails.time} onChange={handleChange}/>
                 </div>
                 <div>
-                    <label htmlFor="description">Event Description:</label>
-                    <textarea
-                        id="description"
-                        name="description"
-                        value={eventDetails.description}
-                        onChange={handleChange}
-                        required
-                    />
+                    <HTMLTextInputComponent name="description" isTextArea type="" value={eventDetails.description} onChange={handleChange}/>
+                    <br/>
+                    <HTMLTextInputComponent name="organizer" type="text" value={eventDetails.organizer} onChange={handleChange}/>
+                    <br/>
+                    <HTMLTextInputComponent name="location" type="text" value={eventDetails.location} onChange={handleChange}/>
+                    <br/>
+                    <HTMLTextInputComponent name="attire" type="text" value={eventDetails.attire} onChange={handleChange} isOptional/>
                 </div>
                 <div>
                     <label htmlFor="flyer">Upload Flyer:</label>
@@ -139,6 +121,41 @@ function CreateEventPage() {
             <button onClick={() => {signOut()}}>Sign Out</button>
         </div>
     );
+}
+
+// temporary to be deprecated on styling update
+const HTMLTextInputComponent = (props: {
+    name: string, 
+    type: string, 
+    value: string, 
+    onChange: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void, 
+    isTextArea?: boolean
+    isOptional?: boolean
+}) => {
+    return (
+        <>
+            <label htmlFor={props.name}>Event {props.name[0].toUpperCase() + props.name.slice(1)}:</label>
+            {props.isTextArea ? 
+                <textarea
+                    className='border border-gray-300'
+                    id={props.name}
+                    name={props.name}
+                    value={props.value}
+                    onChange={props.onChange}
+                    required={!props.isOptional}
+                />
+            :    <input
+                    className='border border-gray-300'
+                    type={props.type}
+                    id={props.name}
+                    name={props.name}
+                    value={props.value}
+                    onChange={props.onChange}
+                    required={!props.isOptional}
+                />
+            }
+        </>
+    )
 }
 
 export default CreateEventPage;

@@ -19,6 +19,9 @@ export type Event = {
   name: string,
   dateTime: Timestamp,
   description: string,
+  organizer: string,
+  location: string,
+  attire: string | null,
 
   flyerStorageURL: StorageReference,
   flyerDownloadURL: string | null,
@@ -29,6 +32,9 @@ export type EventInputObject = {
   name: string,
   dateTime: Timestamp,
   description: string,
+  organizer: string,
+  location: string,
+  attire: string,
 
   flyerData: File,
 };
@@ -52,13 +58,17 @@ export const fetchEventsData = async (): Promise<Event[]> => {
   const events: Event[] = querySnapshot.docs.map(
     (doc) => {
       const _data = doc.data();
+
       return {
         id: doc.id,
         name: _data.eventName as string,
         dateTime: _data.eventDateTime as Timestamp,
         description: _data.eventDescription as string,
+        organizer: _data.eventOrganizer as string,
+        location: _data.eventLocation as string,
+        attire: (_data.eventAttire as string) || null,
+
         flyerStorageURL: _data.eventFlyerRef as StorageReference,
-        
         flyerDownloadURL: null,
         flyerData: null,
       };
@@ -84,5 +94,8 @@ export const storeEvent = async (user: User, data: EventInputObject): Promise<vo
     eventDataTime: data.dateTime,
     eventDescription: data.description,
     eventFlyerRef: uploadRef.toString(),
+    eventOrganizer: data.organizer,
+    eventLocation: data.location,
+    eventAttire: data.attire || null,
   })
 };

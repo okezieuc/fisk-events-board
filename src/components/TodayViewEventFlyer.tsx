@@ -1,5 +1,5 @@
 import React from "react";
-import FirestoreImage from "./FirestoreImage";
+import FirestoreBackgroundImage from "./FirestoreBackgroundImage";
 
 type TodayViewEventFlyerProps = {
   src: string;
@@ -10,7 +10,10 @@ type TodayViewEventFlyerProps = {
 export default function TodayViewEventFlyer(props: TodayViewEventFlyerProps) {
   return (
     <div className="grow">
-      <FirestoreImage src={props.src} classExtension="rounded-3xl shadow-2xl" />
+      <FirestoreBackgroundImage
+        src={props.src}
+        classExtension="rounded-3xl shadow-2xl h-full w-full bg-center bg-cover"
+      />
     </div>
   );
 }

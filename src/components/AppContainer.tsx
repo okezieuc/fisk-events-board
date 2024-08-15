@@ -6,7 +6,7 @@ import React, { PropsWithChildren } from "react";
 export default function AppContainer(props: PropsWithChildren) {
   return (
     <div className="bg-stone-50">
-      <div className="flex flex-col max-w-screen-sm  mx-auto h-screen py-16 px-12 gap-6">
+      <div className="flex flex-col max-w-screen-sm  mx-auto h-dvh py-16 px-12 gap-6">
         {props.children}
       </div>
     </div>

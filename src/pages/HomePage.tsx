@@ -48,7 +48,7 @@ export default function Home() {
       <AppHeader
         title="Today"
         subtitle="Click to view weekly wrap"
-        rightSideText="? events"
+        rightSideText={`${events.length.toString()} events`}
       />
 
       <TodayViewEvent

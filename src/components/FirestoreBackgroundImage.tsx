@@ -1,16 +1,16 @@
-
 import React, { useEffect, useState } from "react";
 import { fetchImageURLFromStorage } from "../services/firebase";
 
 type FirestoreImageProps = {
-  src: string,
-  classExtension?: string,
+  src: string;
+  classExtension?: string;
 };
 
-export default function FirestoreImage(props: FirestoreImageProps) {
-  const [imageURL, setImageURL] = useState('');
+// replace loading text with actual spinning indicator
+export default function FirestoreBackgroundImage(props: FirestoreImageProps) {
+  const [imageURL, setImageURL] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   useEffect(() => {
     // sets to loading state (probably a spinner)
@@ -22,7 +22,7 @@ export default function FirestoreImage(props: FirestoreImageProps) {
         setImageURL(_imgURL);
       })
       .catch((err) => {
-        // catches the error. 
+        // catches the error.
         // Error probably to be used in the rendering somehow.
         setError(err);
       })
@@ -41,8 +41,11 @@ export default function FirestoreImage(props: FirestoreImageProps) {
   }
 
   return (
-    <div>
-      <img src={imageURL} alt={imageURL} className={props.classExtension} />
-    </div>
+    <div
+      style={{
+        backgroundImage: `url("${imageURL}")`,
+      }}
+      className={props.classExtension}
+    ></div>
   );
 }

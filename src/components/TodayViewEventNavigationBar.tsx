@@ -28,7 +28,7 @@ export default function TodayViewEventNavigationBar(
       </button>
       <div className="grow"></div>
       <button
-        className={`flex items-center justify-center text-white bg-black p-2 rounded-lg text-xs cursor-pointer h-9 w-11 shadow-2xl ${
+        className={`flex items-center justify-center text-white bg-black p-2 rounded-lg text-xs cursor-pointer h-9 w-16 shadow-2xl ${
           props.currentSlide === props.eventCount - 1 ? "opacity-50" : ""
         }`}
         onClick={
@@ -40,7 +40,10 @@ export default function TodayViewEventNavigationBar(
                 )
         }
       >
-        <i data-feather="arrow-right" className="h-3 w-3"></i>
+        <div className="flex gap-2 items-center">
+          <span className="font-semibold tracking-tight">Next</span>
+          <i data-feather="arrow-right" className="h-3 w-3"></i>
+        </div>
       </button>
     </div>
   );

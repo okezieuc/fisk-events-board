@@ -9,7 +9,9 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "cors": "^2.8.5",
+    "feather-icons": "^4.29.2",
     "firebase": "^10.5.0",
+    "nodemon": "^3.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.17.0",
@@ -21,7 +23,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "nodemon start"
   },
   "eslintConfig": {
     "extends": [
@@ -42,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "@types/feather-icons": "^4.29.4",
     "@types/uuid": "^10.0.0",
     "tailwindcss": "^3.4.1"
   }

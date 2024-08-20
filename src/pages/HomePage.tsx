@@ -5,6 +5,7 @@ import type { Event } from "../services/firebase";
 import AppHeader from "../components/AppHeader";
 import TodayViewEvent from "../components/TodayViewEvent";
 import TodayViewEventNavigationBar from "../components/TodayViewEventNavigationBar";
+import feather from "feather-icons";
 
 export default function Home() {
   const [_loading, setLoading] = useState(true);
@@ -43,21 +44,28 @@ export default function Home() {
     getEventsData();
   }, []);
 
+  useEffect(() => {
+    feather.replace();
+  }, [currentEventIndex]);
+
   return (
     <AppContainer>
       <AppHeader
         title="Today"
         subtitle="Click to view weekly wrap"
-        rightSideText="? events"
+        rightSideText={
+          events.length === 1 ? "1 event" : `${events.length} events`
+        }
       />
 
       <TodayViewEvent
-        event={currentEventIndex != -1 ? events[currentEventIndex] : null}
+        event={currentEventIndex !== -1 ? events[currentEventIndex] : null}
       />
 
       <TodayViewEventNavigationBar
         setCurrentEventIndex={setCurrentEventIndex}
         eventCount={events.length}
+        currentSlide={currentEventIndex}
       />
     </AppContainer>
   );

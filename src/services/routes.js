@@ -3,7 +3,7 @@ import HomePage from "../pages/HomePage";
 import SignUpPage from "../pages/SignUpPage";
 import LogInPage from "../pages/LogInPage";
 import CreateEventPage from "../pages/CreateEventPage";
-import Dashboard from "../dashboard/Dashboard"; // Import the Dashboard component
+import Dashboard from "../dashboard/Dashboard"; 
 import ProtectedRoute from "../components/ProtectedRoute";
 
 const routes = createBrowserRouter([

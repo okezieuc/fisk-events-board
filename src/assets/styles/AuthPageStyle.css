@@ -3,7 +3,15 @@ html {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    /* 
+    Removed because this style affects all pages in the application.
+
+    TODO: Check if this issue is related to how the style is imported. And
+    if it is not, move the style into some other component that is specific
+    to the pages where this style is needed. 
+    
     margin-top: 10px;
+    */
   }
 
   .loginback {

@@ -30,7 +30,7 @@ const Dashboard = () => {
   }, []);
 
   const handleEdit = (id: string) => {
-    navigate(`/edit-event/${id}`);
+    console.log(`Edit event with ID: ${id}`);
   };
 
   return (

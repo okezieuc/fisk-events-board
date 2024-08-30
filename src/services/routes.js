@@ -3,7 +3,7 @@ import HomePage from "../pages/HomePage";
 import SignUpPage from "../pages/SignUpPage";
 import LogInPage from "../pages/LogInPage";
 import CreateEventPage from "../pages/CreateEventPage";
-import Dashboard from "../dashboard/Dashboard"; 
+import DashboardPage from "../pages/DashboardPage"; 
 import ProtectedRoute from "../components/ProtectedRoute";
 
 const routes = createBrowserRouter([
@@ -21,11 +21,11 @@ const routes = createBrowserRouter([
   },
   {
     path: "/create",
-    element: <ProtectedRoute><CreateEventPage /></ProtectedRoute>,
+    element: <ProtectedRoute><CreateEventPage /></ProtectedRoute>, 
   },
   {
     path: "/dashboard",
-    element: <ProtectedRoute><Dashboard /></ProtectedRoute>,
+    element: <ProtectedRoute><DashboardPage /></ProtectedRoute>,
   },
   {
     path: "/edit-event/:id", 

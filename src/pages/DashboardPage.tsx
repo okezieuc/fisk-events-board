@@ -4,7 +4,7 @@ import { fetchEventsData } from "../services/firebase";
 import FirestoreImage from "../components/FirestoreImage";
 import type { Event } from "../services/firebase";
 
-const Dashboard = () => {
+const DashboardPage = () => {
   const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState<Event[]>([]);
   const [error, setError] = useState<Error | null>(null);
@@ -30,7 +30,7 @@ const Dashboard = () => {
   }, []);
 
   const handleEdit = (id: string) => {
-    console.log(`Edit event with ID: ${id}`);
+    navigate(`/edit-event/${id}`);
   };
 
   return (
@@ -60,4 +60,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardPage;
